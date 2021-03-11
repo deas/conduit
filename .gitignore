@@ -13,3 +13,5 @@ out
 /.shadow-cljs
 yarn.lock
 /.idea
+/.calva
+/.lsp

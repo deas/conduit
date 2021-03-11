@@ -1,10 +1,17 @@
 (ns conduit.core
   (:require [re-frame.core :refer [dispatch-sync]]
-            [reagent.core :as reagent]
+            [reagent.dom :as dom]
             [conduit.router :as router]
             [conduit.events]  ;; These three are only
             [conduit.subs]    ;; required to make the compiler
             [conduit.views])) ;; load them
+
+
+(defn ^:dev/after-load mount
+  []
+  (println "mount")
+  (dom/render [conduit.views/conduit-app]
+                  (.getElementById js/document "app")))
 
 ;; -- Entry Point -------------------------------------------------------------
 ;; Within ../../resources/public/index.html you'll see this code:
@@ -26,5 +33,4 @@
   ;; Render the UI into the HTML's <div id="app" /> element
   ;; The view function `conduit.views/conduit-app` is the
   ;; root view for the entire UI.
-  (reagent/render [conduit.views/conduit-app]
-    (.getElementById js/document "app")))
+  (mount))
